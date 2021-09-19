@@ -86,32 +86,47 @@ it('rotate the robot', () => {
 })
 
 it('move the robot', () => {
-  console.log(getGameBoard())
-
   // Move the robot one position
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('1,2,WEST')
+  expect(getRobotPosition()).toEqual('1,4,EAST')
 
   // Move the robot one position to the end of the row
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('1,1,WEST')
+  expect(getRobotPosition()).toEqual('1,5,EAST')
 
   // Warp the position to the other side
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('1,5,WEST')
+  expect(getRobotPosition()).toEqual('1,1,EAST')
 
-  runCommand({ command: COMMANDS.LEFT })
-  expect(getRobotPosition()).toEqual('1,5,SOUTH')
+  runCommand({ command: COMMANDS.RIGHT })
+  expect(getRobotPosition()).toEqual('1,1,SOUTH')
 
   // Warp the position to the north
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('5,5,SOUTH')
+  expect(getRobotPosition()).toEqual('5,1,SOUTH')
 
   // Move one position
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('4,5,SOUTH')
+  expect(getRobotPosition()).toEqual('4,1,SOUTH')
 
   // Move one position
   runCommand({ command: COMMANDS.MOVE })
-  expect(getRobotPosition()).toEqual('3,5,SOUTH')
+  expect(getRobotPosition()).toEqual('3,1,SOUTH')
+
+  // Place walls and test
+  runCommand({ command: COMMANDS.PLACE_WALL, row: 2, col: 1 })
+  runCommand({ command: COMMANDS.PLACE_WALL, row: 1, col: 1 })
+
+  // Move one position
+  runCommand({ command: COMMANDS.MOVE })
+  expect(getRobotPosition()).toEqual('3,1,SOUTH')
+
+  // Rotate robot 180 degrees and move ahead 3 steps
+  runCommand({ command: COMMANDS.RIGHT })
+  runCommand({ command: COMMANDS.RIGHT })
+
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.MOVE })
+  expect(getRobotPosition()).toEqual('5,1,NORTH')
 })

@@ -35,6 +35,49 @@ const getNewDirection = (current, command) => {
   }
 }
 
+// Compute new robot position after moving
+const getNewPosition = () => {
+  const { row: oldRow, col: oldCol } = robotPosition
+
+  let newRow = oldRow,
+    newCol = oldCol
+
+  switch (robotPosition.facing) {
+    case DIRECTIONS.EAST:
+      newCol = oldCol + 1 > 5 ? 1 : oldCol + 1
+      // Can not move if there is a wall ahead
+      if (gameBoard[oldRow][newCol] === CONTENTS.WALL) return false
+
+      break
+
+    case DIRECTIONS.WEST:
+      newCol = oldCol - 1 < 1 ? 5 : oldCol - 1
+      // Can not move if there is a wall ahead
+      if (gameBoard[oldRow][newCol] === CONTENTS.WALL) return false
+
+      break
+
+    case DIRECTIONS.NORTH:
+      newRow = oldRow + 1 > 5 ? 1 : oldRow + 1
+      // Can not move if there is a wall ahead
+      if (gameBoard[newRow][oldCol] === CONTENTS.WALL) return false
+
+      break
+
+    case DIRECTIONS.SOUTH:
+      newRow = oldRow - 1 < 1 ? 5 : oldRow - 1
+      // Can not move if there is a wall ahead
+      if (gameBoard[newRow][oldCol] === CONTENTS.WALL) return false
+
+      break
+
+    default:
+      return false
+  }
+
+  return { row: newRow, col: newCol }
+}
+
 const runCommand = ({ command, row, col, facing }) => {
   switch (command) {
     // Handle the place robot command
@@ -63,11 +106,26 @@ const runCommand = ({ command, row, col, facing }) => {
     case COMMANDS.LEFT:
     case COMMANDS.RIGHT:
       if (!robotPosition) return
+      // Update robot position
       robotPosition.facing = getNewDirection(robotPosition.facing, command)
+      // Update game board
+      gameBoard[robotPosition.row][robotPosition.col] = robotPosition.facing
 
       break
 
     case COMMANDS.MOVE:
+      if (!robotPosition) return
+
+      const newPosition = getNewPosition()
+      if (!newPosition) return
+
+      // Move robot to new position
+      runCommand({
+        command: COMMANDS.PLACE_ROBOT,
+        facing: robotPosition.facing,
+        ...newPosition,
+      })
+
       break
 
     case COMMANDS.REPORT:
@@ -79,7 +137,7 @@ const runCommand = ({ command, row, col, facing }) => {
   }
 }
 
-const getGameBoard = () => gameBoard
+const getGameBoard = () => ({ ...gameBoard })
 
 // Clears the game area (matrix) and initialises the game
 const initialiseGame = () => {
