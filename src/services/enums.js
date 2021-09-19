@@ -13,3 +13,8 @@ export const DIRECTIONS = {
   SOUTH: 'SOUTH',
   WEST: 'WEST',
 }
+
+export const CONTENTS = {
+  ROBOT: 'ROBOT',
+  WALL: 'WALL',
+}
