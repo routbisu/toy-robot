@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test"
   },
   "author": "Biswa Rout",
   "license": "ISC",
@@ -16,7 +16,8 @@
     "react-scripts": "^4.0.3"
   },
   "devDependencies": {
-    "node-sass": "^6.0.1"
+    "node-sass": "^6.0.1",
+    "react-test-renderer": "^17.0.2"
   },
   "browserslist": {
     "production": [
