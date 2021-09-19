@@ -85,13 +85,15 @@ const runCommand = ({ command, row, col, facing }) => {
       // Check for valid co-ordinates
       if (!validatePosition({ row, col, facing })) return
 
-      // Remove robot from old position
-      if (robotPosition) gameBoard[robotPosition.row][robotPosition.col] = null
+      if (gameBoard[row][col] !== CONTENTS.WALL) {
+        // Remove robot from old position
+        if (robotPosition) gameBoard[robotPosition.row][robotPosition.col] = null
 
-      // Place robot in new position
-      gameBoard[row][col] = facing
+        // Place robot in new position
+        gameBoard[row][col] = facing
 
-      robotPosition = { row, col, facing }
+        robotPosition = { row, col, facing }
+      }
 
       break
 
@@ -135,6 +137,8 @@ const runCommand = ({ command, row, col, facing }) => {
     default:
       break
   }
+
+  return true
 }
 
 const getGameBoard = () => ({ ...gameBoard })

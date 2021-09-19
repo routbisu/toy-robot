@@ -1,5 +1,5 @@
 import { COMMANDS, CONTENTS, DIRECTIONS } from './enums'
-import { getGameBoard, runCommand, getRobotPosition } from './robotEngine'
+import { getGameBoard, runCommand, getRobotPosition, initialiseGame } from './robotEngine'
 
 it('place a robot', () => {
   // When no robot are on the board
@@ -129,4 +129,17 @@ it('move the robot', () => {
   runCommand({ command: COMMANDS.MOVE })
   runCommand({ command: COMMANDS.MOVE })
   expect(getRobotPosition()).toEqual('5,1,NORTH')
+})
+
+it('sample gameplay test - 1', () => {
+  initialiseGame()
+  runCommand({ command: COMMANDS.PLACE_ROBOT, row: 3, col: 3, facing: DIRECTIONS.NORTH })
+  runCommand({ command: COMMANDS.PLACE_WALL, row: 3, col: 5 })
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.RIGHT })
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.MOVE })
+  runCommand({ command: COMMANDS.MOVE })
+  expect(getRobotPosition()).toEqual('5,1,EAST')
 })

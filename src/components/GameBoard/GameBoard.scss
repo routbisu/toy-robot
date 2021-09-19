@@ -1,0 +1,46 @@
+@import '../../styling/tokens.scss';
+
+.gameboard-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 20px;
+
+  .row {
+    display: flex;
+
+    .col {
+      flex: 1;
+      border: 1px solid $border-color;
+      margin-left: -1px;
+      margin-top: -1px;
+
+      &::before {
+        content: '';
+        float: left;
+        padding-top: 100%;
+      }
+
+      &.robot {
+        background: url('../../images/robot.png');
+        background-size: contain;
+
+        &.north {
+          transform: rotate(-90deg);
+        }
+
+        &.south {
+          transform: rotate(90deg);
+        }
+
+        &.west {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.wall {
+        background: $wall-color;
+      }
+    }
+  }
+}
