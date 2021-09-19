@@ -1,2 +1,25 @@
+@import '../../styling/tokens.scss';
+
 .controls-container {
+  display: flex;
+
+  select,
+  input {
+    border: 1px solid $border-color-form;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    margin-right: 5px;
+  }
+
+  input {
+    width: 50px;
+  }
+
+  button {
+    border: none;
+    padding: 10px 12px;
+    background: $button-bg;
+    color: $white;
+    font-size: 0.9rem;
+  }
 }

@@ -31,8 +31,8 @@ const Controls = ({ onSubmit }) => {
       </select>
       {(command === COMMANDS.PLACE_ROBOT || command === COMMANDS.PLACE_WALL) && (
         <>
-          <input type="number" value={row} onChange={(evt) => setRow(evt.target.value)} />
-          <input type="number" value={col} onChange={(evt) => setCol(evt.target.value)} />
+          <input type="number" placeholder="Row" value={row} onChange={(evt) => setRow(evt.target.value)} />
+          <input type="number" placeholder="Col" value={col} onChange={(evt) => setCol(evt.target.value)} />
         </>
       )}
       {command === COMMANDS.PLACE_ROBOT && (
